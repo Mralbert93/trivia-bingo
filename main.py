@@ -38,6 +38,10 @@ async def start(ctx: SlashContext, amount: int, difficulty: str = None):
         await ctx.send(f"{ctx.author.mention}, sorry a game is already running. Only one game can be run at a time.", ephemeral=True)
         return
 
+    if difficulty not in {"easy", "medium", "hard"}:
+        await ctx.send(f"{ctx.author.mention}, Sorry. You inputted an invalid difficulty. Valid choices are: easy, medium, hard", ephemeral=True)
+        return
+
     questions_map = await get_questions(amount, difficulty)
     question_number = 1
     active_game = True
